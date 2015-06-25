@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section scripts{
+    <script src="~/Scripts/ng-file-upload-shim.min.js"></script>
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+
+    <script src="~/Scripts/Documentos/Index/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('archivosApp')
+                .factory('archivosResource', archivosResource);
+
+            archivosResource.$inject = ['$resource'];
+
+            function archivosResource($resource) {
+                var documentos = $resource("@Href("~/api/Documentos")");
+                var documentosUrl = "@Href("~/api/Documentos")";
+
+                return {
+                    "documentos": documentos,
+                    "documentosUrl": documentosUrl
+                }
+            }
+        })();
+    </script>
+    @*Controladores js*@
+    <script src="~/Scripts/Documentos/Index/Controllers/fileUploadCtrl.js"></script>
+
+}
+@*<style type="text/css">
+        .button {
+        -moz-appearance: button;
+        /* Firefox */
+        -webkit-appearance: button;
+        /* Safari and Chrome */
+        padding: 10px;
+        margin: 10px;
+        width: 70px;
+    }
+    .drop-box {
+        background: #F8F8F8;
+        border: 5px dashed #DDD;
+        width: 200px;
+        height: 65px;
+        text-align: center;
+        padding-top: 25px;
+        margin: 10px;
+    }
+    .dragover {
+        border: 5px dashed blue;
+    }
+    </style>*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Documentos</h2>
+            <div ng-controller="fileUploadCtrl">
+                Username
+                <input type="text" ng-model="username"></br></br>
+                <input type="checkbox" ng-model="multiple">Subir varios archivos</br></br>
+                watching model:
+                <div class="button" ngf-select ng-model="files" ngf-multiple="multiple">Seleccionar archivo</div>
+                    on file change:
+                <div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="multiple">Seleccionar archivos</div>
+                @*Drop File:
+                    <div ngf-drop ngf-select ng-model="files" class="drop-box"
+                         ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                         accept="image/*,application/pdf">Drop pdfs or images here or click to upload</div>
+                    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>*@
+                :
+                <ul>
+                    <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+                </ul>
+                Upload Log:
+                <pre>{{logProgres}}</pre>
+                <pre>{{log}}</pre>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-controller="fileUploadCtrl" ng-cloak>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Cargar archivos</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" name="archivosMovimientoForm">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="seleccionar" class="col-md-10 control-label">Seleccionar varios archivos?</label>
+                                <div class="col-md-2">
+                                    <input type="checkbox" class="form-control" ng-model="multiple" name="seleccionar">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="titulo" class="col-md-2 control-label">Titulo</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="archivosMovimiento.titulo" name="titulo" ng-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                                <div class="col-md-12">
+                                    <textarea class="form-control" style="max-width:100%;"
+                                              ng-model="archivosMovimiento.descripcion"
+                                              rows="5"
+                                              placeholder="Cargar descripcion del archivo o archivos..."></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*<button ngf-select ngf-change="upload($files)" ngf-multiple="multiple" ng-disabled="archivosMovimientoForm.$invalid">
+                                        Nuevo
+                                    </button>*@
+                                    <button ngf-select ng-model="files" ngf-multiple="multiple" ng-disabled="archivosMovimientoForm.$invalid">
+                                        Nuevo
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Aviso</div>
+                                    <div class="panel-body">
+                                        {{mensajeDelServidor}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Archivos seleccionados</h3>
+            <ul>
+                <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+            </ul>
+            <h3>Progreso de carga</h3>
+            <progressbar class="progress-striped active" value="dynamic" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Cargado !!!</i></progressbar>
+            <pre>{{logProgres}}</pre>
+            <pre>{{log}}</pre>
+            <pre>{{data | json}}</pre>
+        </div>
+    </div>
+</div>
+

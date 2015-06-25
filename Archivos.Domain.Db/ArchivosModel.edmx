@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ArchivosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArchivosMovimientos">
+          <Key>
+            <PropertyRef Name="ArchivosMovimientoID" />
+          </Key>
+          <Property Name="ArchivosMovimientoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
+          <Property Name="Documento" Type="varbinary(max)" Nullable="false" />
+          <Property Name="UsuarioIDCarga" Type="int" Nullable="false" />
+          <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Documentos">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DocumentoFile" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_ArchivosMovimientos&gt;Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="ArchivosMovimientos" Type="Self.ArchivosMovimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="ArchivosMovimientos">
+              <PropertyRef Name="UsuarioIDCarga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArchivosModelStoreContainer">
+          <EntitySet Name="ArchivosMovimientos" EntityType="Self.ArchivosMovimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documentos" EntityType="Self.Documentos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Documentos].[Id] AS [Id], 
+    [Documentos].[Nombre] AS [Nombre], 
+    [Documentos].[DocumentoFile] AS [DocumentoFile]
+    FROM [dbo].[Documentos] AS [Documentos]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_ArchivosMovimientos&gt;Usuarios" Association="Self.fk_ArchivosMovimientos&gt;Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ArchivosMovimientos" EntitySet="ArchivosMovimientos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArchivosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ArchivosMovimiento">
+          <Key>
+            <PropertyRef Name="ArchivosMovimientoID" />
+          </Key>
+          <Property Name="ArchivosMovimientoID" Type="Guid" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Documento" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="UsuarioIDCarga" Type="Int32" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_ArchivosMovimientos_Usuarios" FromRole="ArchivosMovimientos" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ArchivosMovimientos" Relationship="Self.fk_ArchivosMovimientos_Usuarios" FromRole="Usuarios" ToRole="ArchivosMovimientos" />
+        </EntityType>
+        <Association Name="fk_ArchivosMovimientos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ArchivosMovimientos" Type="Self.ArchivosMovimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="ArchivosMovimientos">
+              <PropertyRef Name="UsuarioIDCarga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArchivosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArchivosMovimientos" EntityType="Self.ArchivosMovimiento" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_ArchivosMovimientos_Usuarios" Association="Self.fk_ArchivosMovimientos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ArchivosMovimientos" EntitySet="ArchivosMovimientos" />
+          </AssociationSet>
+          <EntitySet Name="Documentos" EntityType="ArchivosModel.Documento" />
+        </EntityContainer>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentoFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArchivosModelStoreContainer" CdmEntityContainer="ArchivosEntities">
+          <EntitySetMapping Name="ArchivosMovimientos">
+            <EntityTypeMapping TypeName="ArchivosModel.ArchivosMovimiento">
+              <MappingFragment StoreEntitySet="ArchivosMovimientos">
+                <ScalarProperty Name="ArchivosMovimientoID" ColumnName="ArchivosMovimientoID" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="UsuarioIDCarga" ColumnName="UsuarioIDCarga" />
+                <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ArchivosModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documentos">
+            <EntityTypeMapping TypeName="ArchivosModel.Documento">
+              <MappingFragment StoreEntitySet="Documentos">
+                <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
