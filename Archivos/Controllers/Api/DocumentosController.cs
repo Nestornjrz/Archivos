@@ -40,7 +40,9 @@ namespace Archivos.Controllers.Api {
                 }
                 string logArchivos = "Ningun mensaje cargado";
                 bool errorCompleto = false;
-                if (cantidadArchivosSinError == request.Files.Count) {
+                if (request.Files.Count == 1) {
+                    logArchivos = "Archivo cargado";
+                }else if (cantidadArchivosSinError == request.Files.Count) {
                     logArchivos = "Todos los archivos cargados";
                 } else if (cantidadArchivosSinError > 0) {
                     logArchivos = "Algunos archivos cargados";

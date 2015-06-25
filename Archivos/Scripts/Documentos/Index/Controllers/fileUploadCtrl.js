@@ -17,7 +17,7 @@
         $scope.logProgres = '';
 
         $scope.upload = function (files) {
-            $scope.dynamic = 0;
+            $scope.listadoMensajes = [];
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
@@ -26,38 +26,19 @@
                         fields: { 'username': $scope.username },
                         file: file
                     }).progress(function (evt) {
-                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                        console.log('progress: ' + progressPercentage + '% ' +
-                                    evt.config.file.name + '\n' + $scope.log);
-                        $scope.logProgres = 'progress: ' + progressPercentage + '% ' +
+                        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);                     
+                        $scope.log = 'progress: ' + progressPercentage + '% ' +
                                     evt.config.file.name + '\n' + $scope.log;
-
-                        var type;
-                        var value = progressPercentage;
-
-                        if (value < 25) {
-                            type = 'success';
-                        } else if (value < 50) {
-                            type = 'info';
-                        } else if (value < 75) {
-                            type = 'warning';
-                        } else {
-                            type = 'danger';
-                        }
-
-                        $scope.showWarning = (type === 'danger' || type === 'warning');
-
-                        $scope.dynamic = value;
-                        $scope.type = type;
 
                     }).success(function (data, status, headers, config) {
                         $scope.data = data;
                         $timeout(function () {
-                            $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
-                            $scope.mensajeDelServidor = data.MensajeDelProceso;
+                            //$scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+                            $scope.listadoMensajes.push(data);
                         });
                     });
                 }
+
             }
         };
 
