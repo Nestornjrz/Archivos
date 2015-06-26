@@ -175,12 +175,14 @@
     <Compile Include="Controllers\DocumentosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Admin\ManageController.cs" />
+    <Compile Include="Controllers\Admin\UsersAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1045,6 +1047,11 @@
     <Content Include="Views\Documentos\Index.cshtml" />
     <Content Include="Views\Documentos\Index\_FormCargaArchivos.cshtml" />
     <Content Include="Views\Documentos\Index\_ListadoArchivos.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
