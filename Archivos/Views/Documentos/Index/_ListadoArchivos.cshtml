@@ -1,6 +1,6 @@
 ﻿<div class="row" ng-controller="listadoArchivosCtrl as vm">
     <div class="col-md-12">
-        <table>
+        <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
                 <tr>
                     <th>Archivo</th>
@@ -9,9 +9,15 @@
             </thead>
             <tbody>
                 <tr ng-repeat="doc in vm.documentos">
-                    <td>{{doc.nombre}}</td>
                     <td>
-                        <img src="@Href("~")images/docs/{{doc.nombre}}" alt="{{doc.nombre}}" class="img-thumbnail" style="width:200px;height:200px;" />
+                        <a href="@Href("~")images/docs/{{doc.nombre}}">
+                            {{doc.nombre}}
+                        </a>
+                    </td>
+                    <td>
+                        <div ng-show="doc.extension == 'jpg' || doc.extension == 'gif' || doc.extension == 'png'">
+                            <img src="@Href("~")images/docs/{{doc.nombre}}" alt="{{doc.nombre}}" class="img-thumbnail" style="width:200px;height:200px;" />
+                        </div>
                     </td>
                 </tr>
             </tbody>
