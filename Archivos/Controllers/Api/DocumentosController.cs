@@ -12,8 +12,12 @@ using System.Web.Http;
 namespace Archivos.Controllers.Api {
     public class DocumentosController : ApiController {
         // GET: api/Documentos
-        public IEnumerable<string> Get() {
-            return new string[] { "value1", "value2" };
+        public HttpResponseMessage Get() {
+            DocumentosManagers dm = new DocumentosManagers();
+            string ruta = Path.Combine("~/images/docs");
+            var rutaDestino = HttpContext.Current.Server.MapPath(ruta);
+            List<DocumentoDto> listado = dm.ListadoDocumentos(rutaDestino);
+            return Request.CreateResponse<List<DocumentoDto>>(HttpStatusCode.OK, listado);
         }
 
         // GET: api/Documentos/5

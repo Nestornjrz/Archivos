@@ -1,0 +1,66 @@
+﻿<div class="row" ng-controller="fileUploadCtrl" ng-cloak style="margin-top:25px;">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cargar archivos</div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" name="archivosMovimientoForm">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="seleccionar" class="col-md-10 control-label">Seleccionar varios archivos?</label>
+                            <div class="col-md-2">
+                                <input type="checkbox" class="form-control" ng-model="multiple" name="seleccionar">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="titulo" class="col-md-2 control-label">Titulo</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="archivosMovimiento.titulo" name="titulo" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="max-width:100%;"
+                                          ng-model="archivosMovimiento.descripcion"
+                                          rows="5"
+                                          placeholder="Cargar descripcion del archivo o archivos..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*<button ngf-select ngf-change="upload($files)" ngf-multiple="multiple" ng-disabled="archivosMovimientoForm.$invalid">
+                                        Nuevo
+                                    </button>*@
+                                <button ngf-select ng-model="files" ngf-multiple="multiple" ng-disabled="archivosMovimientoForm.$invalid">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    <div ng-repeat="mensaje in listadoMensajes">
+                                        <ul>
+                                            <li ng-repeat="menArchivo in mensaje.objetoDto">
+                                                ({{mensaje.mensajeDelProceso}}) - {{menArchivo.mensajeDelProceso}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Archivos seleccionados</h3>
+        <ul>
+            <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+        </ul>
+        <h3 ng-show="log != ''">Progreso de carga</h3>
+        <pre ng-show="log != ''">{{log}}</pre>
+    </div>
+</div>

@@ -225,6 +225,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Documentos\Index\Controllers\fileUploadCtrl.js" />
+    <Content Include="Scripts\Documentos\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\Documentos\Index\Services\common.services.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1042,10 +1043,12 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Documentos\Index.cshtml" />
+    <Content Include="Views\Documentos\Index\_FormCargaArchivos.cshtml" />
+    <Content Include="Views\Documentos\Index\_ListadoArchivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Documentos\Index\" />
+    <Folder Include="images\docs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
