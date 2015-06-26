@@ -1,5 +1,21 @@
 ﻿<div class="row" ng-controller="listadoArchivosCtrl as vm">
     <div class="col-md-12">
+        <table>
+            <thead>
+                <tr>
+                    <th>Archivo</th>
+                    <th>Vista (si es una imagen)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="doc in vm.documentos">
+                    <td>{{doc.nombre}}</td>
+                    <td>
+                        <img src="@Href("~")images/docs/{{doc.nombre}}" alt="{{doc.nombre}}" class="img-thumbnail" style="width:200px;height:200px;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <pre>
         {{vm.documentos | json}}
 </pre>

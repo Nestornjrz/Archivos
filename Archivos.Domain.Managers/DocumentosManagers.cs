@@ -151,6 +151,8 @@ namespace Archivos.Domain.Managers {
                     }).ToList();
                 listado.ForEach(delegate(DocumentoDto dDto) {
                     this.RecuperarDocumento(dDto.Nombre, rutaDestino);
+                    string[] archivo = dDto.Nombre.Split('.');
+                    dDto.Extension = archivo[archivo.Length - 1];
                 });
                 return listado;
             }

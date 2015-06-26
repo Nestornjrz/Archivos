@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 namespace Archivos.Application.Dto {
     public class DocumentoDto {
         public string Nombre { get; set; }
+        public string Extension { get; set; }
     }
 }
