@@ -21,7 +21,7 @@ namespace Archivos.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ArchivosDb", throwIfV1Schema: false)
         {
         }
         static ApplicationDbContext() {

@@ -17,7 +17,8 @@ namespace Archivos.Domain.Db
         public System.Guid ArchivosMovimientoID { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public byte[] Documento { get; set; }
+        public byte[] DocumentoFile { get; set; }
+        public string NombreArchivo { get; set; }
         public int UsuarioIDCarga { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     

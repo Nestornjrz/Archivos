@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section scripts{
+    <script src="~/Scripts/Padrones/Index/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('archivosApp')
+                .factory('archivosResource', archivosResource);
+
+            archivosResource.$inject = ['$resource'];
+
+            function archivosResource($resource) {
+                var usuarios = $resource("@Href("~/api/Usuarios")");
+
+                return {
+                    "usuarios": usuarios
+                }
+            }
+        })();
+    </script>
+    @*Controllers*@
+    <script src="~/Scripts/Padrones/Index/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/usuarios/usuariosCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/usuarios/listadoUsuariosCtrl.js"></script>
+}
+<h2>Padrones</h2>
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak>
+    <ul class="nav nav-tabs" style="margin-top:25px;">
+        <li role="presentation" class="{{vm.menu.usuarios.class}}">
+            <a href="#" ng-click="vm.usuariosFn()">Usuarios</a>
+        </li>
+
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.usuarios.mostrar">
+        @Html.Partial("Index/_Usuarios")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Por favor elija uno de las opciones a cargar dentro de los padrones
+        </div>
+    </div>
+</div>
+
+@*////////////////////////////////////////////////////////////////////
+    //////////////////////TEMPLETE DE LOS MODALES////////////////////////*@
+<script type="text/ng-template" id="ModalEliminacionUsuario.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>ID</th>
+                <td>{{usuario.usuarioID}}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{usuario.nombreUsuario}}</td>
+            </tr>
+            <tr>
+                <th>Abreviatura</th>
+                <td>{{usuario.correoElectronico}}</td>
+            </tr>          
+        </table>
+        {{respuesta.mensajeDelProceso}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
+
+
+

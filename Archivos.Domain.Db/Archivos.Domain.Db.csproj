@@ -70,6 +70,18 @@
     <Compile Include="ArchivosMovimiento.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaim.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Documento.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>
     </Compile>

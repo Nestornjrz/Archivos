@@ -16,6 +16,6 @@ namespace Archivos.Domain.Db
     {
         public System.Guid Id { get; set; }
         public string Nombre { get; set; }
-        public byte[] DocumentoFile { get; set; }
+        public byte[] Documento1 { get; set; }
     }
 }
