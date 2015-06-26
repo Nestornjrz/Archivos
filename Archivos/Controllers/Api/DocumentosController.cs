@@ -31,6 +31,10 @@ namespace Archivos.Controllers.Api {
             MensajeDto mensaje = null;
             List<MensajeDto> listadoMensajeArchivos = new List<MensajeDto>();
             var request = HttpContext.Current.Request;
+            //Se recupera las variables enviadas desde el formulario 
+            var titulo = request["titulo"];
+            var descripcion = request["descripcion"];
+
             if (request.Files.Count > 0) {
                 var cantidadArchivosSinError = request.Files.Count;
                 foreach (string file in request.Files) {

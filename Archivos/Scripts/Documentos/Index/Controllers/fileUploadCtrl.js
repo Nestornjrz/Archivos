@@ -23,7 +23,10 @@
                     var file = files[i];
                     Upload.upload({
                         url: archivosResource.documentosUrl,
-                        fields: { 'username': $scope.username },
+                        fields: {
+                            'titulo': $scope.archivosMovimiento.titulo,
+                            'descripcion': $scope.archivosMovimiento.descripcion
+                        },
                         file: file
                     }).progress(function (evt) {
                         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);                     
