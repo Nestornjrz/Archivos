@@ -171,7 +171,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
-    <Compile Include="Controllers\Api\ArchivosDocumentoDto.cs" />
     <Compile Include="Controllers\Api\ArchivosMovimientosController.cs" />
     <Compile Include="Controllers\Api\DocumentosController.cs" />
     <Compile Include="Controllers\Api\UsuariosController.cs" />

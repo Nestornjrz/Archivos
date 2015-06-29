@@ -19,8 +19,8 @@ namespace Archivos.Controllers.Api
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             string ruta = Path.Combine("~/images/docs");
             var rutaDestino = HttpContext.Current.Server.MapPath(ruta);
-            List<ArchivosDocumentoDto> listado = amm.ListadoDocumentos(rutaDestino);
-            return Request.CreateResponse<List<ArchivosDocumentoDto>>(HttpStatusCode.OK, listado);
+            List<ArchivosMovimientoDto> listado = amm.ListadoDocumentos(rutaDestino);
+            return Request.CreateResponse<List<ArchivosMovimientoDto>>(HttpStatusCode.OK, listado);
         }
 
         // GET: api/ArchivosMovimientos/5
