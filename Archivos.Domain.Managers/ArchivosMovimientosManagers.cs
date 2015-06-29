@@ -20,12 +20,11 @@ namespace Archivos.Domain.Managers {
                     .Select(s => new ArchivosMovimientoDto() {
                         Titulo = s.Titulo,
                         Descripcion = s.Descripcion,
-                        NombreArchivo = s.NombreArchivo
+                        NombreArchivo = s.NombreArchivo,
+                        Extension = s.Extension
                     }).ToList();
                 listado.ForEach(delegate(ArchivosMovimientoDto amDto) {
-                    this.RecuperarDocumento(amDto.NombreArchivo, rutaDestino);
-                    string[] archivo = amDto.NombreArchivo.Split('.');
-                    amDto.Extension = archivo[archivo.Length - 1];
+                    this.RecuperarDocumento(amDto.NombreArchivo, rutaDestino);                  
                 });
 
                 return listado;

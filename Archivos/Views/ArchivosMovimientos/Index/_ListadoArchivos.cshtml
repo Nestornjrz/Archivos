@@ -3,20 +3,20 @@
         <table class="table table-bordered table-striped table-condensed table-hover">
             <thead>
                 <tr>
-                    <th>Archivo</th>
-                    <th>Descripcion</th>
+                    <th>Archivo/Descripcion</th>
                     <th>Vista (si es una imagen)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="doc in vm.archivosMovimientos">
-                    <td>
+                    <td width="40%">
+                        <b>Archivo:</b>
                         <a href="@Href("~")images/docs/{{doc.nombreArchivo}}" target="_blank">
                             {{doc.nombreArchivo}}
                         </a>
-                    </td>
-                    <td width="30%">
-                        {{doc.descripcion}}
+                        <div>
+                            {{doc.descripcion}}
+                        </div>
                     </td>
                     <td>
                         <div ng-show="doc.extension == 'JPG' || doc.extension == 'jpg' || doc.extension == 'gif' || doc.extension == 'png'">
