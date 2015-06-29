@@ -77,7 +77,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Documento" Type="varbinary(max)" />
+          <Property Name="DocumentoFile" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -168,7 +168,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
             <DefiningQuery>SELECT 
     [Documentos].[Id] AS [Id], 
     [Documentos].[Nombre] AS [Nombre], 
-    [Documentos].[Documento] AS [Documento]
+    [Documentos].[DocumentoFile] AS [DocumentoFile]
     FROM [dbo].[Documentos] AS [Documentos]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fk_ArchivosMovimientos&gt;Usuarios" Association="Self.fk_ArchivosMovimientos&gt;Usuarios">
@@ -344,7 +344,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Documento1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DocumentoFile" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -431,7 +431,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <EntitySetMapping Name="Documentos">
             <EntityTypeMapping TypeName="ArchivosModel.Documento">
               <MappingFragment StoreEntitySet="Documentos">
-                <ScalarProperty Name="Documento1" ColumnName="Documento" />
+                <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

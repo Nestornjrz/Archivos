@@ -12,10 +12,12 @@ namespace Archivos.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class Documento
+    public partial class AspNetUserLogin
     {
-        public System.Guid Id { get; set; }
-        public string Nombre { get; set; }
-        public byte[] DocumentoFile { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

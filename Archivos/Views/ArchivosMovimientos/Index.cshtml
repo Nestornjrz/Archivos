@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section scripts{
+    <script src="~/Scripts/ng-file-upload-shim.min.js"></script>
+    <script src="~/Scripts/ng-file-upload.min.js"></script>
+    <script src="~/Scripts/ArchivosMovimientos/Index/Services/common.services.js"></script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            angular
+                .module('archivosApp')
+                .factory('archivosResource', archivosResource);
+
+            archivosResource.$inject = ['$resource'];
+
+            function archivosResource($resource) {
+                var archivosMovimientos = $resource("@Href("~/api/ArchivosMovimientos")");
+
+                return {
+                    "archivosMovimientos": archivosMovimientos
+                }
+            }
+        })();
+    </script>
+    @*Controladores js*@
+    <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/menuCtrl.js"></script>
+    <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/archivosMovimientoCtrl.js"></script>
+}
+<div class="container" ng-controller="menuCtrl as vm" ng-cloak>
+    <h2>Carga y listado de archivos</h2>
+    <ul class="nav nav-tabs" style="margin-top:25px;">
+        <li role="presentation" class="{{vm.menu.formulario.class}}">
+            <a href="#" ng-click="vm.formularioFn()">Cargar archivos</a>
+        </li>
+    </ul>
+    <div style="margin-top:25px;" ng-show="vm.menu.formulario.mostrar">
+        @Html.Partial("Index/_FormCargaArchivos")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
+        <div class="alert alert-info">
+            Por favor elija uno de las opciones
+        </div>
+    </div>
+</div>

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Admin\AccountController.cs" />
     <Compile Include="Controllers\Api\DocumentosController.cs" />
     <Compile Include="Controllers\Api\UsuariosController.cs" />
+    <Compile Include="Controllers\ArchivosMovimientosController.cs" />
     <Compile Include="Controllers\DocumentosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Admin\ManageController.cs" />
@@ -227,6 +228,9 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\archivosMovimientoCtrl.js" />
+    <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\menuCtrl.js" />
+    <Content Include="Scripts\ArchivosMovimientos\Index\Services\common.services.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Documentos\Index\Controllers\fileUploadCtrl.js" />
@@ -1066,6 +1070,8 @@
     <Content Include="Views\RolesAdmin\Index.cshtml" />
     <Content Include="Views\Padrones\Index.cshtml" />
     <Content Include="Views\Padrones\Index\_Usuarios.cshtml" />
+    <Content Include="Views\ArchivosMovimientos\Index.cshtml" />
+    <Content Include="Views\ArchivosMovimientos\Index\_FormCargaArchivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
