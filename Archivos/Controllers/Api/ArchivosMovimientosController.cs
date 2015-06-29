@@ -8,14 +8,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
-namespace Archivos.Controllers.Api
-{
-    public class ArchivosMovimientosController : ApiController
-    {
+namespace Archivos.Controllers.Api {
+    [Authorize]
+    public class ArchivosMovimientosController : ApiController {
         // GET: api/ArchivosMovimientos
-        public HttpResponseMessage Get()
-        {
+        public HttpResponseMessage Get() {
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             string ruta = Path.Combine("~/images/docs");
             var rutaDestino = HttpContext.Current.Server.MapPath(ruta);
@@ -24,14 +23,13 @@ namespace Archivos.Controllers.Api
         }
 
         // GET: api/ArchivosMovimientos/5
-        public string Get(int id)
-        {
+        public string Get(int id) {
             return "value";
         }
 
         // POST: api/ArchivosMovimientos
-        public HttpResponseMessage Post()
-        {
+        [Authorize(Roles = "Operador")]
+        public HttpResponseMessage Post() {
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             MensajeDto mensaje = null;
             List<MensajeDto> listadoMensajeArchivos = new List<MensajeDto>();
@@ -46,7 +44,13 @@ namespace Archivos.Controllers.Api
                     var postedFile = request.Files[file];
                     using (var binaryReader = new BinaryReader(postedFile.InputStream)) {
                         byte[] fileData = binaryReader.ReadBytes(postedFile.ContentLength);
-                        var mensajeCadaUno = amm.guardarDocumento(postedFile.FileName, fileData);
+                        var mensajeCadaUno = amm
+                            .guardarDocumento(postedFile.FileName,
+                            fileData,
+                            titulo,
+                            descripcion,
+                            Guid.Parse(User.Identity.GetUserId())
+                            );
                         if (mensajeCadaUno.Error) { cantidadArchivosSinError -= 1; }
                         listadoMensajeArchivos.Add(mensajeCadaUno);
                     }
@@ -54,7 +58,11 @@ namespace Archivos.Controllers.Api
                 string logArchivos = "Ningun mensaje cargado";
                 bool errorCompleto = false;
                 if (request.Files.Count == 1) {
-                    logArchivos = "Archivo cargado";
+                    if (listadoMensajeArchivos[0].Error) {
+                        logArchivos = "Error";
+                    } else {
+                        logArchivos = "Archivo cargado";
+                    }
                 } else if (cantidadArchivosSinError == request.Files.Count) {
                     logArchivos = "Todos los archivos cargados";
                 } else if (cantidadArchivosSinError > 0) {
@@ -81,13 +89,11 @@ namespace Archivos.Controllers.Api
         }
 
         // PUT: api/ArchivosMovimientos/5
-        public void Put(int id, [FromBody]string value)
-        {
+        public void Put(int id, [FromBody]string value) {
         }
 
         // DELETE: api/ArchivosMovimientos/5
-        public void Delete(int id)
-        {
+        public void Delete(int id) {
         }
     }
 }

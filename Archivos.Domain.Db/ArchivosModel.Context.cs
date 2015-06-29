@@ -29,8 +29,8 @@ namespace Archivos.Domain.Db
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Documento> Documentos { get; set; }
         public virtual DbSet<ArchivosMovimiento> ArchivosMovimientos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<Documento> Documentos { get; set; }
     }
 }

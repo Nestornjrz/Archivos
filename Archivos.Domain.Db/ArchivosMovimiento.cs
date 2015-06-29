@@ -19,6 +19,7 @@ namespace Archivos.Domain.Db
         public string Descripcion { get; set; }
         public byte[] DocumentoFile { get; set; }
         public string NombreArchivo { get; set; }
+        public string Extension { get; set; }
         public int UsuarioIDCarga { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     

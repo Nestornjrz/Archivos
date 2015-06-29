@@ -230,6 +230,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\archivosMovimientoCtrl.js" />
+    <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\listadoArchivosCtrl.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\menuCtrl.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Services\common.services.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1073,6 +1074,7 @@
     <Content Include="Views\Padrones\Index\_Usuarios.cshtml" />
     <Content Include="Views\ArchivosMovimientos\Index.cshtml" />
     <Content Include="Views\ArchivosMovimientos\Index\_FormCargaArchivos.cshtml" />
+    <Content Include="Views\ArchivosMovimientos\Index\_ListadoArchivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,9 +16,11 @@
 
             function archivosResource($resource) {
                 var archivosMovimientos = $resource("@Href("~/api/ArchivosMovimientos")");
+                var archivosMovimientosUrl = "@Href("~/api/ArchivosMovimientos")";
 
                 return {
-                    "archivosMovimientos": archivosMovimientos
+                    "archivosMovimientos": archivosMovimientos,
+                    "archivosMovimientosUrl": archivosMovimientosUrl
                 }
             }
         })();
@@ -26,6 +28,7 @@
     @*Controladores js*@
     <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/archivosMovimientoCtrl.js"></script>
+<script src="~/Scripts/ArchivosMovimientos/Index/Controllers/listadoArchivosCtrl.js"></script>
 }
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
     <h2>Carga y listado de archivos</h2>
@@ -33,9 +36,15 @@
         <li role="presentation" class="{{vm.menu.formulario.class}}">
             <a href="#" ng-click="vm.formularioFn()">Cargar archivos</a>
         </li>
+        <li role="presentation" class="{{vm.menu.listado.class}}">
+            <a href="#" ng-click="vm.listadoFn()">Listado archivos</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.formulario.mostrar">
         @Html.Partial("Index/_FormCargaArchivos")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.listado.mostrar">
+        @Html.Partial("Index/_ListadoArchivos")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">

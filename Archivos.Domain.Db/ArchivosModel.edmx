@@ -14,6 +14,7 @@
           <Property Name="Descripcion" Type="text" Nullable="false" />
           <Property Name="DocumentoFile" Type="varbinary(max)" Nullable="false" />
           <Property Name="NombreArchivo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="UsuarioIDCarga" Type="int" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -213,13 +214,13 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Documentos" EntityType="ArchivosModel.Documento" />
           <EntitySet Name="ArchivosMovimientos" EntityType="ArchivosModel.ArchivosMovimiento" />
           <EntitySet Name="Usuarios" EntityType="ArchivosModel.Usuario" />
           <AssociationSet Name="fk_ArchivosMovimientos_Usuarios" Association="ArchivosModel.fk_ArchivosMovimientos_Usuarios">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="ArchivosMovimiento" EntitySet="ArchivosMovimientos" />
           </AssociationSet>
-          <EntitySet Name="Documentos" EntityType="ArchivosModel.Documento" />
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -302,6 +303,15 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <End Type="ArchivosModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="ArchivosModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentoFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="ArchivosMovimiento">
           <Key>
             <PropertyRef Name="ArchivosMovimientoID" />
@@ -311,6 +321,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DocumentoFile" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="NombreArchivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioIDCarga" Type="Int32" Nullable="false" />
           <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Usuario" Relationship="ArchivosModel.fk_ArchivosMovimientos_Usuarios" FromRole="ArchivosMovimiento" ToRole="Usuario" />
@@ -337,15 +348,6 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Documento">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Nombre" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DocumentoFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -405,11 +407,21 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Documentos">
+            <EntityTypeMapping TypeName="ArchivosModel.Documento">
+              <MappingFragment StoreEntitySet="Documentos">
+                <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ArchivosMovimientos">
             <EntityTypeMapping TypeName="ArchivosModel.ArchivosMovimiento">
               <MappingFragment StoreEntitySet="ArchivosMovimientos">
                 <ScalarProperty Name="MomentoCarga" ColumnName="MomentoCarga" />
                 <ScalarProperty Name="UsuarioIDCarga" ColumnName="UsuarioIDCarga" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
                 <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
                 <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -425,15 +437,6 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documentos">
-            <EntityTypeMapping TypeName="ArchivosModel.Documento">
-              <MappingFragment StoreEntitySet="Documentos">
-                <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

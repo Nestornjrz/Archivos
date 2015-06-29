@@ -19,7 +19,7 @@
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
                     Upload.upload({
-                        url: archivosResource.documentosUrl,
+                        url: archivosResource.archivosMovimientosUrl,
                         fields: {
                             'titulo': $scope.archivosMovimiento.titulo,
                             'descripcion': $scope.archivosMovimiento.descripcion
