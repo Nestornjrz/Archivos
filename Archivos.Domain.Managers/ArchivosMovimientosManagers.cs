@@ -16,17 +16,52 @@ namespace Archivos.Domain.Managers {
     public class ArchivosMovimientosManagers {
         public List<ArchivosMovimientoDto> ListadoDocumentos(string rutaDestino) {
             using (var context = new ArchivosEntities()) {
-                var listado = context.ArchivosMovimientos
-                    .Select(s => new ArchivosMovimientoDto() {
-                        Titulo = s.Titulo,
-                        Descripcion = s.Descripcion,
-                        NombreArchivo = s.NombreArchivo,
-                        Extension = s.Extension
-                    }).ToList();
-                listado.ForEach(delegate(ArchivosMovimientoDto amDto) {
-                    this.RecuperarDocumento(amDto.NombreArchivo, rutaDestino);                  
-                });
+                var listadoDb = context.ArchivosMovimientos.AsQueryable();
 
+                listadoDb = listadoDb.Take(20).AsQueryable();
+
+                var listado = listadoDb.Select(s => new ArchivosMovimientoDto() {
+                    Titulo = s.Titulo,
+                    Descripcion = s.Descripcion,
+                    NombreArchivo = s.NombreArchivo,
+                    Extension = s.Extension
+                }).ToList();
+
+                listado.ForEach(delegate(ArchivosMovimientoDto amDto) {
+                    this.RecuperarDocumento(amDto.NombreArchivo, rutaDestino);
+                });
+                return listado;
+            }
+        }
+        public List<ArchivosMovimientoDto> ListadoDocumentos(string rutaDestino, string titulo, string descripcion) {
+            using (var context = new ArchivosEntities()) {
+                var listadoDb = context.ArchivosMovimientos.AsQueryable();
+
+                if (titulo != null) {
+                    var tituloArray = titulo.Split(',');
+                    foreach (var palabra in tituloArray) {
+                        var palabraTrim = palabra.Trim();
+                        listadoDb = listadoDb.Where(l => l.Titulo.Contains(palabraTrim)).AsQueryable();
+                    }
+                }
+                if (descripcion != null) {
+                    var descripcionArray = descripcion.Split(',');
+                    foreach (var palabra in descripcionArray) {
+                        var palabraTrim = palabra.Trim();
+                        listadoDb = listadoDb.Where(l => l.Descripcion.Contains(palabraTrim)).AsQueryable();
+                    }
+                }
+
+                var listado = listadoDb.Select(s => new ArchivosMovimientoDto() {
+                    Titulo = s.Titulo,
+                    Descripcion = s.Descripcion,
+                    NombreArchivo = s.NombreArchivo,
+                    Extension = s.Extension
+                }).ToList();
+
+                listado.ForEach(delegate(ArchivosMovimientoDto amDto) {
+                    this.RecuperarDocumento(amDto.NombreArchivo, rutaDestino);
+                });
                 return listado;
             }
         }
@@ -140,7 +175,7 @@ namespace Archivos.Domain.Managers {
                             string cadSql = string.Empty;
 
                             //obtengo el PathName()
-                            cadSql = "SELECT DocumentoFile.PathName() from dbo.[ArchivosMovimientos] where Nombre=@nombre";
+                            cadSql = "SELECT DocumentoFile.PathName() from dbo.[ArchivosMovimientos] where NombreArchivo=@nombre";
                             using (SqlCommand cmdUbicacion = new SqlCommand(cadSql, conexionBD, transaccion)) {
                                 cmdUbicacion.Parameters.AddWithValue("@Nombre", nombre);
                                 object objUbicacion = cmdUbicacion.ExecuteScalar();
@@ -196,5 +231,6 @@ namespace Archivos.Domain.Managers {
             };
         }
         #endregion
+
     }
 }

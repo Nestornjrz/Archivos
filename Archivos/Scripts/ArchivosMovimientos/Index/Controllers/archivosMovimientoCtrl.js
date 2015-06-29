@@ -5,9 +5,9 @@
         .module('archivosApp')
         .controller('archivosMovimientoCtrl', archivosMovimientoCtrl);
 
-    archivosMovimientoCtrl.$inject = ['$scope', '$timeout', 'archivosResource', 'Upload'];
+    archivosMovimientoCtrl.$inject = ['$scope', '$timeout', '$rootScope', 'archivosResource', 'Upload'];
 
-    function archivosMovimientoCtrl($scope, $timeout, archivosResource, Upload) {
+    function archivosMovimientoCtrl($scope, $timeout, $rootScope, archivosResource, Upload) {
         /* jshint validthis:true */
         $scope.$watch('files', function () {
             $scope.upload($scope.files);
@@ -40,6 +40,9 @@
                 }
 
             }
+            $timeout(function () {                
+                $rootScope.$broadcast('actualizarListadoArchivos', {});
+            });
         };
     }
 })();

@@ -1075,6 +1075,7 @@
     <Content Include="Views\ArchivosMovimientos\Index.cshtml" />
     <Content Include="Views\ArchivosMovimientos\Index\_FormCargaArchivos.cshtml" />
     <Content Include="Views\ArchivosMovimientos\Index\_ListadoArchivos.cshtml" />
+    <Content Include="Views\ArchivosMovimientos\Index\_FiltroForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

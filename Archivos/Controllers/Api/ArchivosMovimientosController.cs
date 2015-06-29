@@ -14,11 +14,16 @@ namespace Archivos.Controllers.Api {
     [Authorize]
     public class ArchivosMovimientosController : ApiController {
         // GET: api/ArchivosMovimientos
-        public HttpResponseMessage Get() {
+        public HttpResponseMessage Get([FromUri] string titulo, [FromUri] string descripcion) {
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             string ruta = Path.Combine("~/images/docs");
             var rutaDestino = HttpContext.Current.Server.MapPath(ruta);
-            List<ArchivosMovimientoDto> listado = amm.ListadoDocumentos(rutaDestino);
+            List<ArchivosMovimientoDto> listado;
+            if (titulo != null || descripcion != null) {
+                listado = amm.ListadoDocumentos(rutaDestino, titulo, descripcion);
+            } else {
+                listado = amm.ListadoDocumentos(rutaDestino);
+            }
             return Request.CreateResponse<List<ArchivosMovimientoDto>>(HttpStatusCode.OK, listado);
         }
 

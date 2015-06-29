@@ -1,0 +1,45 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">Filtrar</div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" name="filtroForm">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="titulo" class="col-md-3 control-label">Titulo</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" ng-model="vm.filtro.titulo" name="titulo" ng-required="false" placeholder="Palabra clave separados por coma">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="col-md-3 control-label">Descripcion</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" ng-model="vm.filtro.descripcion" name="descripcion" ng-required="false" placeholder="Palabra clave separados por coma">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <span>
+                        <button ng-click="vm.buscar()" class="btn btn-default">
+                            Buscar
+                        </button>
+                    </span>
+                    <span>
+                        <button ng-click="vm.nuevaBusqueda()" class="btn btn-default">
+                            Nueva busqueda
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Aviso</div>
+                        <div class="panel-body">
+                            Se deve colocar palabras clave, por ejemplo: si se quiere traer todas las fotos donde
+                            aparecen en el titulo la palabra <code>factura</code> y la palabra <code>Genesur</code>
+                            se deve colocar como como separador <code>factura,Genesur</code>. Lo mismo para la descripcion.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
