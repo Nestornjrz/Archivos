@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ArchivosMovimientoDto.cs" />
     <Compile Include="DocumentoDto.cs" />
+    <Compile Include="LugarDto.cs" />
     <Compile Include="MensajeDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioDto.cs" />

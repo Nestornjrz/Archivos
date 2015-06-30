@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="ArchivosMovimientosManagers.cs" />
     <Compile Include="DocumentosManagers.cs" />
+    <Compile Include="LugaresManagers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuariosManagers.cs" />
     <Compile Include="Util\AgregarModificar.cs" />

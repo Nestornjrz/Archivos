@@ -173,6 +173,7 @@
     <Compile Include="Controllers\Admin\AccountController.cs" />
     <Compile Include="Controllers\Api\ArchivosMovimientosController.cs" />
     <Compile Include="Controllers\Api\DocumentosController.cs" />
+    <Compile Include="Controllers\Api\LugaresController.cs" />
     <Compile Include="Controllers\Api\UsuariosController.cs" />
     <Compile Include="Controllers\ArchivosMovimientosController.cs" />
     <Compile Include="Controllers\DatosInicio.cs" />
