@@ -15,8 +15,8 @@ namespace Archivos.Controllers.Api
         public HttpResponseMessage Get()
         {
             LugaresManagers lm = new LugaresManagers();
-            List<LugarDto> listado = lm.ListadoLugares();
-            return Request.CreateResponse<List<LugarDto>>(HttpStatusCode.OK, listado);
+            List<LugareDto> listado = lm.ListadoLugares();
+            return Request.CreateResponse<List<LugareDto>>(HttpStatusCode.OK, listado);
         }
 
         // GET: api/Lugares/5
@@ -26,7 +26,7 @@ namespace Archivos.Controllers.Api
         }
 
         // POST: api/Lugares
-        public HttpResponseMessage Post(LugarDto lDto)
+        public HttpResponseMessage Post(LugareDto lDto)
         {
             LugaresManagers lm = new LugaresManagers();
             MensajeDto mensaje = lm.CargarLugar(lDto);
