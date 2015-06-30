@@ -1,0 +1,62 @@
+﻿/*
+Created: 24/06/2015
+Modified: 30/06/2015
+Model: Archivos
+Database: MS SQL Server 2014
+*/
+
+
+-- Create tables section -------------------------------------------------
+
+-- Table Usuarios
+
+CREATE TABLE [Usuarios]
+(
+ [UsuarioID] Int IDENTITY(1,1) NOT NULL,
+ [NombreUsuario] Varchar(50) NOT NULL,
+ [UserID] Uniqueidentifier NOT NULL,
+ [CorreoElectronico] Varchar(50) NOT NULL
+)
+go
+
+-- Add keys for table Usuarios
+
+ALTER TABLE [Usuarios] ADD CONSTRAINT [pk_Usuarios] PRIMARY KEY ([UsuarioID])
+go
+
+-- Table ArchivosMovimientos
+
+CREATE TABLE [ArchivosMovimientos]
+(
+ [ArchivosMovimientoID] Uniqueidentifier ROWGUIDCOL NOT NULL,
+ [Titulo] Varchar(200) NOT NULL,
+ [Descripcion] Text NOT NULL,
+ [DocumentoFile] Varbinary(max) FILESTREAM NOT NULL,
+ [NombreArchivo] Varchar(100) NOT NULL,
+ [Extension] Varchar(5) NOT NULL,
+ [UsuarioIDCarga] Int NOT NULL,
+ [MomentoCarga] Datetime2 NOT NULL,
+ CONSTRAINT [Pk_ArchivosMovimientos] PRIMARY KEY NONCLUSTERED ([ArchivosMovimientoID])
+)
+go
+
+-- Create indexes for table ArchivosMovimientos
+
+CREATE INDEX [IX_ArchivosMovimientos_UsuarioIDCarga] ON [ArchivosMovimientos] ([UsuarioIDCarga])
+go
+
+CREATE UNIQUE INDEX [IX_Unique_ArchivosMovimientos_NombreArchivo] ON [ArchivosMovimientos] ([NombreArchivo])
+go
+
+-- Add keys for table ArchivosMovimientos
+
+ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [ArchivosMovimientoID] UNIQUE CLUSTERED ([ArchivosMovimientoID])
+go
+
+-- Create relationships section ------------------------------------------------- 
+
+ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [fk_ArchivosMovimientos>Usuarios] FOREIGN KEY ([UsuarioIDCarga]) REFERENCES [Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+
+
