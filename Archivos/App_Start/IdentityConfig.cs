@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Archivos.Models;
+using Archivos.Controllers;
 
 namespace Archivos
 {
@@ -113,8 +114,8 @@ namespace Archivos
         public static void InitializeIdentityForEF(ApplicationDbContext db) {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-            const string name = "admin@admin.com";
-            const string password = "Ab12345./";
+            string name = DatosInicio.RecuperarValor("CustomSettingEmail");
+            string password = DatosInicio.RecuperarValor("CustomSettingContrasena");
             const string roleName = "Admin";
 
             //Create Role Admin if it does not exist
