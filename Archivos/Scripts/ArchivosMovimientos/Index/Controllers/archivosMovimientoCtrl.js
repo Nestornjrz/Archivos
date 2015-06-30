@@ -31,6 +31,9 @@
                                     evt.config.file.name + '\n' + $scope.log;
 
                     }).success(function (data, status, headers, config) {
+                        if (!data.error) {
+                            $scope.archivosMovimiento = {};
+                        }
                         $scope.data = data;
                         $timeout(function () {
                             //$scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
@@ -40,7 +43,7 @@
                 }
 
             }
-            $timeout(function () {                
+            $timeout(function () {
                 $rootScope.$broadcast('actualizarListadoArchivos', {});
             });
         };

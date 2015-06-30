@@ -66,6 +66,7 @@ namespace Archivos.Controllers.Api {
                 if (request.Files.Count == 1) {
                     if (listadoMensajeArchivos[0].Error) {
                         logArchivos = "Error";
+                        errorCompleto = true;
                     } else {
                         logArchivos = "Archivo cargado";
                     }
