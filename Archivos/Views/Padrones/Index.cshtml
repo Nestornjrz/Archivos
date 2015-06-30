@@ -29,10 +29,11 @@
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
     <ul class="nav nav-tabs" style="margin-top:25px;">
-        <li role="presentation" class="{{vm.menu.usuarios.class}}">
-            <a href="#" ng-click="vm.usuariosFn()">Usuarios</a>
-        </li>
-
+        @if (User.IsInRole("Admin")) {
+            <li role="presentation" class="{{vm.menu.usuarios.class}}">
+                <a href="#" ng-click="vm.usuariosFn()">Usuarios</a>
+            </li>
+        }
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.usuarios.mostrar">
         @Html.Partial("Index/_Usuarios")
@@ -64,7 +65,7 @@
             <tr>
                 <th>Abreviatura</th>
                 <td>{{usuario.correoElectronico}}</td>
-            </tr>          
+            </tr>
         </table>
         {{respuesta.mensajeDelProceso}}
     </div>

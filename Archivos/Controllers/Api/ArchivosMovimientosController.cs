@@ -14,6 +14,7 @@ namespace Archivos.Controllers.Api {
     [Authorize]
     public class ArchivosMovimientosController : ApiController {
         // GET: api/ArchivosMovimientos
+        [Authorize(Roles = "Operador")]
         public HttpResponseMessage Get([FromUri] string titulo, [FromUri] string descripcion) {
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             string ruta = Path.Combine("~/images/docs");

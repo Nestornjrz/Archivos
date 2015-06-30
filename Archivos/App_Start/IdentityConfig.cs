@@ -163,6 +163,13 @@ namespace Archivos
                 role = new IdentityRole(roleName);
                 var roleresult = roleManager.Create(role);
             }
+
+            roleName = "Padrones";
+            role = roleManager.FindByName(roleName);
+            if (role == null) {
+                role = new IdentityRole(roleName);
+                var roleresult = roleManager.Create(role);
+            }
         }
     }
 

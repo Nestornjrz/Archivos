@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace Archivos.Controllers.Api
 {
+    [Authorize(Roles="Admin")]
     public class UsuariosController : ApiController {
         // GET: api/Usuarios
         public HttpResponseMessage Get() {
