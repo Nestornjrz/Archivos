@@ -94,6 +94,9 @@
     <Compile Include="Documento.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Lugare.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>

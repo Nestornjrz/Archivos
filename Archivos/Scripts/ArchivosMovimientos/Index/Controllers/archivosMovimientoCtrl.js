@@ -7,8 +7,9 @@
 
     archivosMovimientoCtrl.$inject = ['$scope', '$timeout', '$rootScope', 'archivosResource', 'Upload'];
 
-    function archivosMovimientoCtrl($scope, $timeout, $rootScope, archivosResource, Upload) {
-        /* jshint validthis:true */
+    function archivosMovimientoCtrl($scope, $timeout, $rootScope, archivosResource, Upload) {               
+          
+
         $scope.$watch('files', function () {
             $scope.upload($scope.files);
         });

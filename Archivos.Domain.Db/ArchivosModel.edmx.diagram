@@ -13,8 +13,10 @@
         <AssociationConnector Association="ArchivosModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ArchivosModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="ArchivosModel.Documento" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ArchivosModel.ArchivosMovimiento" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="ArchivosModel.Usuario" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="ArchivosModel.ArchivosMovimiento" Width="1.875" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="ArchivosModel.Lugare" Width="1.5" PointX="0.75" PointY="7.625" />
+        <AssociationConnector Association="ArchivosModel.fk_ArchivosMovimientos_Lugares" />
         <AssociationConnector Association="ArchivosModel.fk_ArchivosMovimientos_Usuarios" />
       </Diagram>
     </edmx:Diagrams>

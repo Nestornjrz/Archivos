@@ -16,12 +16,18 @@
             ocultar();
             vm.menu.usuarios.class = "active";
             vm.menu.usuarios.mostrar = true;
-        }       
+        }
+        vm.lugaresFn = function () {
+            ocultar();
+            vm.menu.lugares.class = "active";
+            vm.menu.lugares.mostrar = true;
+        }
       
         //////
         function ocultar() {
             vm.menu.introduccion = false;
             vm.menu.usuarios = {};
+            vm.menu.lugares = {};
         }
     }
 })();

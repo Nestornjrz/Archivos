@@ -12,19 +12,16 @@ namespace Archivos.Domain.Db
     using System;
     using System.Collections.Generic;
     
-    public partial class ArchivosMovimiento
+    public partial class Lugare
     {
-        public System.Guid ArchivosMovimientoID { get; set; }
-        public string Titulo { get; set; }
-        public string Descripcion { get; set; }
-        public byte[] DocumentoFile { get; set; }
-        public string NombreArchivo { get; set; }
-        public string Extension { get; set; }
-        public int LugarID { get; set; }
-        public int UsuarioIDCarga { get; set; }
-        public System.DateTime MomentoCarga { get; set; }
+        public Lugare()
+        {
+            this.ArchivosMovimientos = new HashSet<ArchivosMovimiento>();
+        }
     
-        public virtual Lugare Lugare { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public int LugarID { get; set; }
+        public string NombreLugar { get; set; }
+    
+        public virtual ICollection<ArchivosMovimiento> ArchivosMovimientos { get; set; }
     }
 }

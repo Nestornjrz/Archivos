@@ -34,6 +34,7 @@ CREATE TABLE [ArchivosMovimientos]
  [DocumentoFile] Varbinary(max) FILESTREAM NOT NULL,
  [NombreArchivo] Varchar(100) NOT NULL,
  [Extension] Varchar(5) NOT NULL,
+ [LugarID] Int NOT NULL,
  [UsuarioIDCarga] Int NOT NULL,
  [MomentoCarga] Datetime2 NOT NULL,
  CONSTRAINT [Pk_ArchivosMovimientos] PRIMARY KEY NONCLUSTERED ([ArchivosMovimientoID])
@@ -48,14 +49,34 @@ go
 CREATE UNIQUE INDEX [IX_Unique_ArchivosMovimientos_NombreArchivo] ON [ArchivosMovimientos] ([NombreArchivo])
 go
 
+CREATE INDEX [IX_ArchivosMovimientos_LugarID] ON [ArchivosMovimientos] ([LugarID])
+go
+
 -- Add keys for table ArchivosMovimientos
 
 ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [ArchivosMovimientoID] UNIQUE CLUSTERED ([ArchivosMovimientoID])
 go
 
+-- Table Lugares
+
+CREATE TABLE [Lugares]
+(
+ [LugarID] Int IDENTITY(1,1) NOT NULL,
+ [NombreLugar] Varchar(50) NOT NULL
+)
+go
+
+-- Add keys for table Lugares
+
+ALTER TABLE [Lugares] ADD CONSTRAINT [pk_Lugares] PRIMARY KEY ([LugarID])
+go
+
 -- Create relationships section ------------------------------------------------- 
 
 ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [fk_ArchivosMovimientos>Usuarios] FOREIGN KEY ([UsuarioIDCarga]) REFERENCES [Usuarios] ([UsuarioID]) ON UPDATE NO ACTION ON DELETE NO ACTION
+go
+
+ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [fk_ArchivosMovimientos>Lugares] FOREIGN KEY ([LugarID]) REFERENCES [Lugares] ([LugarID]) ON UPDATE NO ACTION ON DELETE NO ACTION
 go
 
 

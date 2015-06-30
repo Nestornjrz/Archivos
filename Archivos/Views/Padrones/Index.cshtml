@@ -14,9 +14,11 @@
 
             function archivosResource($resource) {
                 var usuarios = $resource("@Href("~/api/Usuarios")");
+                var lugares = $resource("@Href("~/api/Lugares")");
 
                 return {
-                    "usuarios": usuarios
+                    "usuarios": usuarios,
+                    "lugares": lugares
                 }
             }
         })();
@@ -25,6 +27,7 @@
     <script src="~/Scripts/Padrones/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/usuarios/usuariosCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/usuarios/listadoUsuariosCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/lugares/lugaresCtrl.js"></script>
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
@@ -34,9 +37,15 @@
                 <a href="#" ng-click="vm.usuariosFn()">Usuarios</a>
             </li>
         }
+        <li role="presentation" class="{{vm.menu.lugares.class}}">
+            <a href="#" ng-click="vm.lugaresFn()">Lugares</a>
+        </li>
     </ul>
     <div style="margin-top:25px;" ng-show="vm.menu.usuarios.mostrar">
         @Html.Partial("Index/_Usuarios")
+    </div>
+    <div style="margin-top:25px;" ng-show="vm.menu.lugares.mostrar">
+        @Html.Partial("Index/_Lugares")
     </div>
     <div style="margin-top:25px;" ng-show="vm.menu.introduccion" class="text-center">
         <div class="alert alert-info">
