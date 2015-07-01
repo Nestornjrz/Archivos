@@ -23,7 +23,8 @@
                                 <textarea class="form-control" style="max-width:100%;"
                                           ng-model="archivosMovimiento.descripcion"
                                           rows="5"
-                                          placeholder="Cargar descripcion del archivo o archivos..."></textarea>
+                                          placeholder="Cargar descripcion del archivo o archivos..."
+                                          ng-required="true"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -32,7 +33,7 @@
                                 <select name="lugar" required
                                         ng-model="archivosMovimiento.lugar"
                                         ng-options="l.nombreLugar for l in lugares" class="form-control"
-                                        ng-required="false">
+                                        ng-required="true">
                                     <!--<option value="">-- Seleccione el concepto --</option>-->
                                     <option value="" ng-hide="archivosMovimiento.lugar">Seleccione lugar</option>
                                 </select>

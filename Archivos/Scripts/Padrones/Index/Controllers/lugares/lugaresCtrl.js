@@ -10,16 +10,16 @@
     function lugaresCtrl($rootScope, archivosResource) {
         /* jshint validthis:true */
         var vm = this;        
-        vm.lugar = {};
+        vm.lugare = {};
         vm.nuevoParaCargar = function () {
-            vm.lugar = {};
+            vm.lugare = {};
         };
         vm.guardar = function () {
-            archivosResource.lugares.save(vm.lugar)
+            archivosResource.lugares.save(vm.lugare)
          .$promise.then(
              function (mensaje) {
                  if (!mensaje.error) {
-                     vm.lugar = mensaje.objetoDto;
+                     vm.lugare = mensaje.objetoDto;
                      vm.mensajeDelServidor = mensaje.mensajeDelProceso;
                      $rootScope.$broadcast('actualizarListadoLugares', {});
                  } else {
@@ -31,5 +31,9 @@
               }
           );
         }
+        //Captura de evento de usuario
+        $rootScope.$on('actualizarLugare', function (event, objValrecibido) {
+            vm.lugare = objValrecibido;
+        });
     }
 })();

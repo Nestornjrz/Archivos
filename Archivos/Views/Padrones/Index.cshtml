@@ -28,6 +28,8 @@
     <script src="~/Scripts/Padrones/Index/Controllers/usuarios/usuariosCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/usuarios/listadoUsuariosCtrl.js"></script>
     <script src="~/Scripts/Padrones/Index/Controllers/lugares/lugaresCtrl.js"></script>
+    <script src="~/Scripts/Padrones/Index/Controllers/lugares/listadoLugaresCtrl.js"></script>
+
 }
 <h2>Padrones</h2>
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
@@ -75,6 +77,30 @@
                 <th>Abreviatura</th>
                 <td>{{usuario.correoElectronico}}</td>
             </tr>
+        </table>
+        {{respuesta.mensajeDelProceso}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="cancel()" id="btn_cancelar">Salir</button>
+        <button class="btn btn-primary" ng-click="ok()" id="btn_save">Eliminar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="ModalEliminacionLugare.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{objeto.mensaje}} {{objeto.id}}</h3>
+        <p class="text-muted">Esta seguro?</p>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>ID</th>
+                <td>{{lugare.lugarID}}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{lugare.nombreLugar}}</td>
+            </tr>            
         </table>
         {{respuesta.mensajeDelProceso}}
     </div>
