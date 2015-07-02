@@ -19,6 +19,18 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <form>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.verListadoDetalladoSn"> Ver vista previa de los archivos de imagenes
+                    </label>
+                </div>
+                @*{{vm.verListadoDetalladoSn | json}}*@
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.verListadoDetalladoSn">
+        <div class="col-md-12">
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
@@ -52,6 +64,33 @@
                         {{vm.archivosMovimientos | json}}
                 </pre>*@
             @*<pre>{{vm.grupoArchiMovs | json}}</pre>*@
+        </div>
+    </div>
+    <div class="row" ng-hide="vm.verListadoDetalladoSn">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Archivo/Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="grupo in vm.grupoArchiMovs">
+                        <td>
+                            {{grupo.cabecera.titulo}}
+                        </td>
+                        <td>
+                            <div ng-repeat="archivo in grupo.archivos">                                
+                                <a href="@Href("~")images/docs/{{archivo.nombreArchivo}}" target="_blank">
+                                    {{archivo.nombreArchivo}}
+                                </a>                                
+                                {{archivo.descripcion}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

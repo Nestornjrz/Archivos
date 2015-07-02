@@ -9,6 +9,8 @@
     function listadoArchivosCtrl($rootScope, archivosResource) {
         var vm = this;
         vm.lugares = archivosResource.lugares.query();
+        //para ver diferentes listados
+        vm.verListadoDetalladoSn = false;
         //Menu
         vm.menu = {};
 
@@ -27,6 +29,7 @@
             vm.menu.filtroForm.class = "active";
             vm.menu.filtroForm.mostrar = true;
             vm.grupoArchiMovs = {};
+            vm.archivosMovimientos = {};
         }
         //////
         vm.listadoFn();
