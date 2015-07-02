@@ -1,5 +1,6 @@
 ﻿using Archivos.Application.Dto;
 using Archivos.Domain.Db;
+using Archivos.Domain.Managers.Util;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,6 +22,7 @@ namespace Archivos.Domain.Managers {
                 listadoDb = listadoDb.Take(20).AsQueryable();
 
                 var listado = listadoDb.Select(s => new ArchivosMovimientoDto() {
+                    ArchivosMovimientoCabID = s.ArchivosMovimientoCabID,
                     Titulo = s.Titulo,
                     Descripcion = s.Descripcion,
                     NombreArchivo = s.NombreArchivo,
@@ -53,6 +55,7 @@ namespace Archivos.Domain.Managers {
                 }
 
                 var listado = listadoDb.Select(s => new ArchivosMovimientoDto() {
+                    ArchivosMovimientoCabID = s.ArchivosMovimientoCabID,
                     Titulo = s.Titulo,
                     Descripcion = s.Descripcion,
                     NombreArchivo = s.NombreArchivo,
@@ -69,10 +72,13 @@ namespace Archivos.Domain.Managers {
             byte[] contenido,
             string titulo,
             string descripcion,
+            string lugarID,
             Guid userID) {
             //Se busca el ID del usuario
             int usuarioIDCarga = 0;
+            ArchivosMovimientosCab archivosMovimientosCabsDb;
             using (var context = new ArchivosEntities()) {
+                //Se carga el usuario
                 var usuarioDb = context.Usuarios
                     .Where(u => u.UserID == userID).FirstOrDefault();
                 if (usuarioDb == null) {
@@ -82,6 +88,14 @@ namespace Archivos.Domain.Managers {
                     };
                 }
                 usuarioIDCarga = usuarioDb.UsuarioID;
+                //Se carga la cabecera
+                MensajeDto mensajeDto = null;
+                archivosMovimientosCabsDb = new ArchivosMovimientosCab();
+                archivosMovimientosCabsDb.Titulo = titulo;
+
+                context.ArchivosMovimientosCabs.Add(archivosMovimientosCabsDb);
+                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
+                if (mensajeDto != null) { return mensajeDto; }
             }
 
             var mensajeConnString = RecuperarElconnectionStrings("ArchivosDb");
@@ -104,12 +118,14 @@ namespace Archivos.Domain.Managers {
                             (ArchivosMovimientoID,NombreArchivo,
                              DocumentoFile,Titulo, 
                              Descripcion, MomentoCarga,
-                             UsuarioIDCarga, Extension) 
+                             UsuarioIDCarga, Extension,
+                             ArchivosMovimientoCabID, LugarID) 
                                VALUES
                             (@ArchivosMovimientoID,@Nombre,
                              @Fichero,@Titulo,
                              @Descripcion, GETDATE(),
-                             @UsuarioIDCarga, @Extension)";
+                             @UsuarioIDCarga, @Extension,
+                             @ArchivosMovimientoCabID, @LugarID)";
                             using (SqlCommand cmd = new SqlCommand(cadSql, conexionBD, transaccion)) {
                                 cmd.Parameters.AddWithValue("@ArchivosMovimientoID", Guid.NewGuid().ToString());
                                 cmd.Parameters.AddWithValue("@Nombre", nombre);
@@ -118,6 +134,8 @@ namespace Archivos.Domain.Managers {
                                 cmd.Parameters.AddWithValue("@Descripcion", descripcion);
                                 cmd.Parameters.AddWithValue("@UsuarioIDCarga", usuarioIDCarga);
                                 cmd.Parameters.AddWithValue("@Extension", extension);
+                                cmd.Parameters.AddWithValue("@ArchivosMovimientoCabID", archivosMovimientosCabsDb.ArchivosMovimientoCabID);
+                                cmd.Parameters.AddWithValue("@LugarID", lugarID);
                                 cmd.ExecuteNonQuery();
                                 transaccion.Commit();
                             }

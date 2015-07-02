@@ -1,4 +1,44 @@
-﻿<div class="row" ng-controller="archivosMovimientoCtrl" ng-cloak style="margin-top:25px;">
+﻿<div class="row" ng-controller="archivosMovimientoCabsCtrl as vm" ng-cloak style="margin-top:25px;">
+    <div class="col-md-6">
+        <div class="panel {{vm.classPanelFormCabecera}}">
+            <div class="panel-heading" ng-click="vm.mostrarBody()">{{vm.formCargarTitulo}}</div>
+            <div class="panel-body" ng-hide="vm.ocultarBodyDeCargarTitulo">
+                <form class="form-horizontal" role="form" name="archivosMovimientoCabForm">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="titulo" class="col-md-2 control-label">Titulo</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="vm.archivosMovimientoCab.titulo" name="titulo" ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button ng-click="vm.guardar()" ng-disabled="archivosMovimientoCabForm.$invalid" class="btn btn-default">
+                                    <span ng-show="vm.archivosMovimientoCab.archivosMovimientoCabID == null">Cargar</span>
+                                    <span ng-show="vm.archivosMovimientoCab.archivosMovimientoCabID != null">Editar ID: {{vm.archivosMovimientoCab.archivosMovimientoCabID}}</span>
+                                </button>
+                                <button ng-click="vm.nuevoParaCargar()" class="btn btn-default">
+                                    Nuevo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Aviso</div>
+                                <div class="panel-body">
+                                    {{vm.mensajeDelServidor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                @*<pre>{{vm.archivosMovimientoCab | json}}</pre>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-controller="archivosMovimientoCtrl" ng-cloak>
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">Cargar archivos</div>
@@ -11,12 +51,12 @@
                                 <input type="checkbox" class="form-control" ng-model="multiple" name="seleccionar">
                             </div>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label for="titulo" class="col-md-2 control-label">Titulo</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" ng-model="archivosMovimiento.titulo" name="titulo" ng-required="true">
                             </div>
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <!--<label for="observacion" class="col-md-3 control-label">Observacion</label>-->
                             <div class="col-md-12">
@@ -64,9 +104,9 @@
                             </div>
                         </div>
                     </div>
-                    @*<pre>{{archivosMovimiento | json}}</pre>
-                    <pre>{{data | json}}</pre>*@
-                </form>
+                    @*<pre>{{archivosMovimiento | json}}</pre>*@
+                    @*<pre>{{data | json}}</pre>
+                        </form>*@
             </div>
         </div>
     </div>

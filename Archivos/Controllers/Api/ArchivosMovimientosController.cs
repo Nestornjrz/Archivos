@@ -43,6 +43,7 @@ namespace Archivos.Controllers.Api {
             //Se recupera las variables enviadas desde el formulario 
             var titulo = request["titulo"];
             var descripcion = request["descripcion"];
+            var lugarID = request["lugarID"];
 
             if (request.Files.Count > 0) {
                 var cantidadArchivosSinError = request.Files.Count;
@@ -55,6 +56,7 @@ namespace Archivos.Controllers.Api {
                             fileData,
                             titulo,
                             descripcion,
+                            lugarID,
                             Guid.Parse(User.Identity.GetUserId())
                             );
                         if (mensajeCadaUno.Error) { cantidadArchivosSinError -= 1; }

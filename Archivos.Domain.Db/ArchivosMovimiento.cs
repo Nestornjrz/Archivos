@@ -15,6 +15,7 @@ namespace Archivos.Domain.Db
     public partial class ArchivosMovimiento
     {
         public System.Guid ArchivosMovimientoID { get; set; }
+        public long ArchivosMovimientoCabID { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public byte[] DocumentoFile { get; set; }
@@ -24,6 +25,7 @@ namespace Archivos.Domain.Db
         public int UsuarioIDCarga { get; set; }
         public System.DateTime MomentoCarga { get; set; }
     
+        public virtual ArchivosMovimientosCab ArchivosMovimientosCab { get; set; }
         public virtual Lugare Lugare { get; set; }
         public virtual Usuario Usuario { get; set; }
     }

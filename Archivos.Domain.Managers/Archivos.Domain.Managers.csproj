@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchivosMovimientosCabsManagers.cs" />
     <Compile Include="ArchivosMovimientosManagers.cs" />
     <Compile Include="DocumentosManagers.cs" />
     <Compile Include="LugaresManagers.cs" />

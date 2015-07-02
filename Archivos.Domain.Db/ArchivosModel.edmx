@@ -10,6 +10,7 @@
             <PropertyRef Name="ArchivosMovimientoID" />
           </Key>
           <Property Name="ArchivosMovimientoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ArchivosMovimientoCabID" Type="bigint" Nullable="false" />
           <Property Name="Titulo" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Descripcion" Type="text" Nullable="false" />
           <Property Name="DocumentoFile" Type="varbinary(max)" Nullable="false" />
@@ -18,6 +19,13 @@
           <Property Name="LugarID" Type="int" Nullable="false" />
           <Property Name="UsuarioIDCarga" Type="int" Nullable="false" />
           <Property Name="MomentoCarga" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArchivosMovimientosCabs">
+          <Key>
+            <PropertyRef Name="ArchivosMovimientoCabID" />
+          </Key>
+          <Property Name="ArchivosMovimientoCabID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -97,6 +105,18 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CorreoElectronico" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="fk_ArchivosMovimientos&gt;ArchivosMovimientosCabs">
+          <End Role="ArchivosMovimientosCabs" Type="Self.ArchivosMovimientosCabs" Multiplicity="1" />
+          <End Role="ArchivosMovimientos" Type="Self.ArchivosMovimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArchivosMovimientosCabs">
+              <PropertyRef Name="ArchivosMovimientoCabID" />
+            </Principal>
+            <Dependent Role="ArchivosMovimientos">
+              <PropertyRef Name="ArchivosMovimientoCabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ArchivosMovimientos&gt;Lugares">
           <End Role="Lugares" Type="Self.Lugares" Multiplicity="1" />
           <End Role="ArchivosMovimientos" Type="Self.ArchivosMovimientos" Multiplicity="*" />
@@ -179,6 +199,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
         </Association>
         <EntityContainer Name="ArchivosModelStoreContainer">
           <EntitySet Name="ArchivosMovimientos" EntityType="Self.ArchivosMovimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArchivosMovimientosCabs" EntityType="Self.ArchivosMovimientosCabs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -193,6 +214,10 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
     [Documentos].[DocumentoFile] AS [DocumentoFile]
     FROM [dbo].[Documentos] AS [Documentos]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="fk_ArchivosMovimientos&gt;ArchivosMovimientosCabs" Association="Self.fk_ArchivosMovimientos&gt;ArchivosMovimientosCabs">
+            <End Role="ArchivosMovimientosCabs" EntitySet="ArchivosMovimientosCabs" />
+            <End Role="ArchivosMovimientos" EntitySet="ArchivosMovimientos" />
+          </AssociationSet>
           <AssociationSet Name="fk_ArchivosMovimientos&gt;Lugares" Association="Self.fk_ArchivosMovimientos&gt;Lugares">
             <End Role="Lugares" EntitySet="Lugares" />
             <End Role="ArchivosMovimientos" EntitySet="ArchivosMovimientos" />
@@ -241,8 +266,13 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           </AssociationSet>
           <EntitySet Name="Documentos" EntityType="ArchivosModel.Documento" />
           <EntitySet Name="Usuarios" EntityType="ArchivosModel.Usuario" />
-          <EntitySet Name="ArchivosMovimientos" EntityType="ArchivosModel.ArchivosMovimiento" />
           <EntitySet Name="Lugares" EntityType="ArchivosModel.Lugare" />
+          <EntitySet Name="ArchivosMovimientos" EntityType="ArchivosModel.ArchivosMovimiento" />
+          <EntitySet Name="ArchivosMovimientosCabs" EntityType="ArchivosModel.ArchivosMovimientosCab" />
+          <AssociationSet Name="fk_ArchivosMovimientos_ArchivosMovimientosCabs" Association="ArchivosModel.fk_ArchivosMovimientos_ArchivosMovimientosCabs">
+            <End Role="ArchivosMovimientosCab" EntitySet="ArchivosMovimientosCabs" />
+            <End Role="ArchivosMovimiento" EntitySet="ArchivosMovimientos" />
+          </AssociationSet>
           <AssociationSet Name="fk_ArchivosMovimientos_Lugares" Association="ArchivosModel.fk_ArchivosMovimientos_Lugares">
             <End Role="Lugare" EntitySet="Lugares" />
             <End Role="ArchivosMovimiento" EntitySet="ArchivosMovimientos" />
@@ -251,7 +281,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="ArchivosMovimiento" EntitySet="ArchivosMovimientos" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -352,22 +382,6 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ArchivosMovimientos" Relationship="ArchivosModel.fk_ArchivosMovimientos_Usuarios" FromRole="Usuario" ToRole="ArchivosMovimiento" />
         </EntityType>
-        <EntityType Name="ArchivosMovimiento">
-          <Key>
-            <PropertyRef Name="ArchivosMovimientoID" />
-          </Key>
-          <Property Name="ArchivosMovimientoID" Type="Guid" Nullable="false" />
-          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DocumentoFile" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="NombreArchivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Extension" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="LugarID" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioIDCarga" Type="Int32" Nullable="false" />
-          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Lugare" Relationship="ArchivosModel.fk_ArchivosMovimientos_Lugares" FromRole="ArchivosMovimiento" ToRole="Lugare" />
-          <NavigationProperty Name="Usuario" Relationship="ArchivosModel.fk_ArchivosMovimientos_Usuarios" FromRole="ArchivosMovimiento" ToRole="Usuario" />
-        </EntityType>
         <EntityType Name="Lugare">
           <Key>
             <PropertyRef Name="LugarID" />
@@ -376,6 +390,44 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
           <Property Name="NombreLugar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ArchivosMovimientos" Relationship="ArchivosModel.fk_ArchivosMovimientos_Lugares" FromRole="Lugare" ToRole="ArchivosMovimiento" />
         </EntityType>
+        <EntityType Name="ArchivosMovimiento">
+          <Key>
+            <PropertyRef Name="ArchivosMovimientoID" />
+          </Key>
+          <Property Name="ArchivosMovimientoID" Type="Guid" Nullable="false" />
+          <Property Name="ArchivosMovimientoCabID" Type="Int64" Nullable="false" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentoFile" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="NombreArchivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LugarID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioIDCarga" Type="Int32" Nullable="false" />
+          <Property Name="MomentoCarga" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="ArchivosMovimientosCab" Relationship="ArchivosModel.fk_ArchivosMovimientos_ArchivosMovimientosCabs" FromRole="ArchivosMovimiento" ToRole="ArchivosMovimientosCab" />
+          <NavigationProperty Name="Lugare" Relationship="ArchivosModel.fk_ArchivosMovimientos_Lugares" FromRole="ArchivosMovimiento" ToRole="Lugare" />
+          <NavigationProperty Name="Usuario" Relationship="ArchivosModel.fk_ArchivosMovimientos_Usuarios" FromRole="ArchivosMovimiento" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ArchivosMovimientosCab">
+          <Key>
+            <PropertyRef Name="ArchivosMovimientoCabID" />
+          </Key>
+          <Property Name="ArchivosMovimientoCabID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ArchivosMovimientos" Relationship="ArchivosModel.fk_ArchivosMovimientos_ArchivosMovimientosCabs" FromRole="ArchivosMovimientosCab" ToRole="ArchivosMovimiento" />
+        </EntityType>
+        <Association Name="fk_ArchivosMovimientos_ArchivosMovimientosCabs">
+          <End Type="ArchivosModel.ArchivosMovimientosCab" Role="ArchivosMovimientosCab" Multiplicity="1" />
+          <End Type="ArchivosModel.ArchivosMovimiento" Role="ArchivosMovimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArchivosMovimientosCab">
+              <PropertyRef Name="ArchivosMovimientoCabID" />
+            </Principal>
+            <Dependent Role="ArchivosMovimiento">
+              <PropertyRef Name="ArchivosMovimientoCabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ArchivosMovimientos_Lugares">
           <End Type="ArchivosModel.Lugare" Role="Lugare" Multiplicity="1" />
           <End Type="ArchivosModel.ArchivosMovimiento" Role="ArchivosMovimiento" Multiplicity="*" />
@@ -400,7 +452,7 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -478,6 +530,14 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Lugares">
+            <EntityTypeMapping TypeName="ArchivosModel.Lugare">
+              <MappingFragment StoreEntitySet="Lugares">
+                <ScalarProperty Name="NombreLugar" ColumnName="NombreLugar" />
+                <ScalarProperty Name="LugarID" ColumnName="LugarID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ArchivosMovimientos">
             <EntityTypeMapping TypeName="ArchivosModel.ArchivosMovimiento">
               <MappingFragment StoreEntitySet="ArchivosMovimientos">
@@ -489,15 +549,16 @@ warning 6002: The table/view 'Archivos.dbo.Documentos' does not have a primary k
                 <ScalarProperty Name="DocumentoFile" ColumnName="DocumentoFile" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="ArchivosMovimientoCabID" ColumnName="ArchivosMovimientoCabID" />
                 <ScalarProperty Name="ArchivosMovimientoID" ColumnName="ArchivosMovimientoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lugares">
-            <EntityTypeMapping TypeName="ArchivosModel.Lugare">
-              <MappingFragment StoreEntitySet="Lugares">
-                <ScalarProperty Name="NombreLugar" ColumnName="NombreLugar" />
-                <ScalarProperty Name="LugarID" ColumnName="LugarID" />
+          <EntitySetMapping Name="ArchivosMovimientosCabs">
+            <EntityTypeMapping TypeName="ArchivosModel.ArchivosMovimientosCab">
+              <MappingFragment StoreEntitySet="ArchivosMovimientosCabs">
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="ArchivosMovimientoCabID" ColumnName="ArchivosMovimientoCabID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

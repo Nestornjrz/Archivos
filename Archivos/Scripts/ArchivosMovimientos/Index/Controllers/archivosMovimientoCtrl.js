@@ -7,7 +7,9 @@
 
     archivosMovimientoCtrl.$inject = ['$scope', '$timeout', '$rootScope', 'archivosResource', 'Upload'];
 
-    function archivosMovimientoCtrl($scope, $timeout, $rootScope, archivosResource, Upload) {               
+    function archivosMovimientoCtrl($scope, $timeout, $rootScope, archivosResource, Upload) {
+        $scope.archivosMovimiento = {};
+        $scope.archivosMovimiento.titulo = "";
         $scope.lugares = archivosResource.lugares.query();
 
         $scope.$watch('files', function () {
@@ -23,7 +25,8 @@
                         url: archivosResource.archivosMovimientosUrl,
                         fields: {
                             'titulo': $scope.archivosMovimiento.titulo,
-                            'descripcion': $scope.archivosMovimiento.descripcion
+                            'descripcion': $scope.archivosMovimiento.descripcion,
+                            'lugarID': $scope.archivosMovimiento.lugar.lugarID
                         },
                         file: file
                     }).progress(function (evt) {
@@ -48,5 +51,14 @@
                 $rootScope.$broadcast('actualizarListadoArchivos', {});
             });
         };
+        //Captura de eventos
+        $rootScope.$on('actualizarArchivosMovimiento', function (event, archivosMovimientoCab) {
+            $scope.archivosMovimiento.titulo = archivosMovimientoCab.titulo;
+            $scope.archivosMovimiento.archivosMovimientoCabID = archivosMovimientoCab.archivosMovimientoCabID;
+            if (archivosMovimientoCab.titulo == null) {
+                $scope.archivosMovimiento = {};
+                $scope.listadoMensajes = [];
+            }
+        });
     }
 })();

@@ -79,6 +79,9 @@
     <Compile Include="ArchivosMovimiento.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ArchivosMovimientosCab.cs">
+      <DependentUpon>ArchivosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>ArchivosModel.tt</DependentUpon>
     </Compile>

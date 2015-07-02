@@ -6,31 +6,34 @@
     <script src="~/Scripts/ng-file-upload.min.js"></script>
     <script src="~/Scripts/ArchivosMovimientos/Index/Services/common.services.js"></script>
     <script type="text/javascript">
-    (function () {
-        'use strict';
-        angular
-            .module('archivosApp')
-            .factory('archivosResource', archivosResource);
+        (function () {
+            'use strict';
+            angular
+                .module('archivosApp')
+                .factory('archivosResource', archivosResource);
 
-        archivosResource.$inject = ['$resource'];
+            archivosResource.$inject = ['$resource'];
 
-        function archivosResource($resource) {
-            var archivosMovimientos = $resource("@Href("~/api/ArchivosMovimientos")");
-            var archivosMovimientosUrl = "@Href("~/api/ArchivosMovimientos")";
-            var lugares = $resource("@Href("~/api/Lugares")");
+            function archivosResource($resource) {
+                var archivosMovimientos = $resource("@Href("~/api/ArchivosMovimientos")");
+                var archivosMovimientosUrl = "@Href("~/api/ArchivosMovimientos")";
+                var lugares = $resource("@Href("~/api/Lugares")");
+                var archivosMovimientosCabs = $resource("@Href("~/api/ArchivosMovimientosCabs")");
 
-            return {
-                "archivosMovimientos": archivosMovimientos,
-                "archivosMovimientosUrl": archivosMovimientosUrl,
-                "lugares": lugares
+                return {
+                    "archivosMovimientos": archivosMovimientos,
+                    "archivosMovimientosUrl": archivosMovimientosUrl,
+                    "lugares": lugares,
+                    "archivosMovimientosCabs": archivosMovimientosCabs
+                }
             }
-        }
-    })();
+        })();
     </script>
     @*Controladores js*@
     <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/menuCtrl.js"></script>
     <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/archivosMovimientoCtrl.js"></script>
     <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/listadoArchivosCtrl.js"></script>
+    <script src="~/Scripts/ArchivosMovimientos/Index/Controllers/archivosMovimientoCabsCtrl.js"></script>
 }
 <div class="container" ng-controller="menuCtrl as vm" ng-cloak>
     <h2>Carga y listado de archivos</h2>

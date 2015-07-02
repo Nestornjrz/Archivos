@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Api\ArchivosMovimientosCabsController.cs" />
     <Compile Include="Controllers\Api\ArchivosMovimientosController.cs" />
     <Compile Include="Controllers\Api\DocumentosController.cs" />
     <Compile Include="Controllers\Api\LugaresController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\archivosMovimientoCabsCtrl.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\archivosMovimientoCtrl.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\listadoArchivosCtrl.js" />
     <Content Include="Scripts\ArchivosMovimientos\Index\Controllers\menuCtrl.js" />
