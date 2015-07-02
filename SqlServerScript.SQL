@@ -8,6 +8,22 @@ Database: MS SQL Server 2014
 
 -- Create tables section -------------------------------------------------
 
+-- Table Usuarios
+
+CREATE TABLE [Usuarios]
+(
+ [UsuarioID] Int IDENTITY(1,1) NOT NULL,
+ [NombreUsuario] Varchar(50) NOT NULL,
+ [UserID] Uniqueidentifier NOT NULL,
+ [CorreoElectronico] Varchar(50) NOT NULL
+)
+go
+
+-- Add keys for table Usuarios
+
+ALTER TABLE [Usuarios] ADD CONSTRAINT [pk_Usuarios] PRIMARY KEY ([UsuarioID])
+go
+
 -- Table ArchivosMovimientos
 
 CREATE TABLE [ArchivosMovimientos]
@@ -43,6 +59,20 @@ go
 -- Add keys for table ArchivosMovimientos
 
 ALTER TABLE [ArchivosMovimientos] ADD CONSTRAINT [ArchivosMovimientoID] UNIQUE CLUSTERED ([ArchivosMovimientoID])
+go
+
+-- Table Lugares
+
+CREATE TABLE [Lugares]
+(
+ [LugarID] Int IDENTITY(1,1) NOT NULL,
+ [NombreLugar] Varchar(50) NOT NULL
+)
+go
+
+-- Add keys for table Lugares
+
+ALTER TABLE [Lugares] ADD CONSTRAINT [pk_Lugares] PRIMARY KEY ([LugarID])
 go
 
 -- Table ArchivosMovimientosCabs
