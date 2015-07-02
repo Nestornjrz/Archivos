@@ -81,12 +81,14 @@
                             {{grupo.cabecera.titulo}}
                         </td>
                         <td>
-                            <div ng-repeat="archivo in grupo.archivos">                                
-                                <a href="@Href("~")images/docs/{{archivo.nombreArchivo}}" target="_blank">
-                                    {{archivo.nombreArchivo}}
-                                </a>                                
-                                {{archivo.descripcion}}
-                            </div>
+                            <ul>
+                                <li ng-repeat="archivo in grupo.archivos">
+                                    <a href="@Href("~")images/docs/{{archivo.nombreArchivo}}" target="_blank">
+                                        {{archivo.nombreArchivo}}
+                                    </a>
+                                    {{archivo.descripcion}}
+                                </li>
+                            </ul>
                         </td>
                     </tr>
                 </tbody>
