@@ -27,30 +27,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="doc in vm.archivosMovimientos">
+                    <tr ng-repeat="grupo in vm.grupoArchiMovs">
                         <td width="40%">
-                            <b>Archivo:</b>
-                            <a href="@Href("~")images/docs/{{doc.nombreArchivo}}" target="_blank">
-                                {{doc.nombreArchivo}}
-                            </a>
-                            <div>
-                                <h2>{{doc.titulo}}</h2>
-                                {{doc.descripcion}}
-                            </div>
+                            <h2>{{grupo.cabecera.titulo}}</h2>
                         </td>
                         <td>
-                            <div ng-show="doc.extension == 'JPG' || doc.extension == 'jpg' || doc.extension == 'gif' || doc.extension == 'png'">
-                                <a href="@Href("~")images/docs/{{doc.nombreArchivo}}" target="_blank">
-                                    <img ng-src="@Href("~")images/docs/{{doc.nombreArchivo}}" alt="{{doc.nombreArchivo}}" class="img-thumbnail img-responsive" />
+                            <div ng-repeat="archivo in grupo.archivos">
+                                <b>Archivo:</b>
+                                <a href="@Href("~")images/docs/{{archivo.nombreArchivo}}" target="_blank">
+                                    {{archivo.nombreArchivo}}
                                 </a>
+                                <div>{{archivo.descripcion}}</div>
+                                <div ng-show="archivo.extension == 'JPG' || archivo.extension == 'jpg' || archivo.extension == 'gif' || archivo.extension == 'png'">
+                                    <a href="@Href("~")images/docs/{{archivo.nombreArchivo}}" target="_blank">
+                                        <img ng-src="@Href("~")images/docs/{{archivo.nombreArchivo}}" alt="{{archivo.nombreArchivo}}" class="img-thumbnail img-responsive" />
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             @*<pre>
-        {{vm.archivosMovimientos | json}}
-</pre>*@
+                        {{vm.archivosMovimientos | json}}
+                </pre>*@
+            @*<pre>{{vm.grupoArchiMovs | json}}</pre>*@
         </div>
     </div>
 </div>

@@ -73,10 +73,10 @@ namespace Archivos.Domain.Managers {
             string titulo,
             string descripcion,
             string lugarID,
-            Guid userID) {
+            Guid userID,
+            int archivosMovimientoCabID) {
             //Se busca el ID del usuario
-            int usuarioIDCarga = 0;
-            ArchivosMovimientosCab archivosMovimientosCabsDb;
+            int usuarioIDCarga = 0;          
             using (var context = new ArchivosEntities()) {
                 //Se carga el usuario
                 var usuarioDb = context.Usuarios
@@ -87,15 +87,7 @@ namespace Archivos.Domain.Managers {
                         MensajeDelProceso = "Error: Este usuario esta registrado pero no fue aceptado por la administracion aun"
                     };
                 }
-                usuarioIDCarga = usuarioDb.UsuarioID;
-                //Se carga la cabecera
-                MensajeDto mensajeDto = null;
-                archivosMovimientosCabsDb = new ArchivosMovimientosCab();
-                archivosMovimientosCabsDb.Titulo = titulo;
-
-                context.ArchivosMovimientosCabs.Add(archivosMovimientosCabsDb);
-                mensajeDto = AgregarModificar.Hacer(context, mensajeDto);
-                if (mensajeDto != null) { return mensajeDto; }
+                usuarioIDCarga = usuarioDb.UsuarioID;            
             }
 
             var mensajeConnString = RecuperarElconnectionStrings("ArchivosDb");
@@ -134,7 +126,7 @@ namespace Archivos.Domain.Managers {
                                 cmd.Parameters.AddWithValue("@Descripcion", descripcion);
                                 cmd.Parameters.AddWithValue("@UsuarioIDCarga", usuarioIDCarga);
                                 cmd.Parameters.AddWithValue("@Extension", extension);
-                                cmd.Parameters.AddWithValue("@ArchivosMovimientoCabID", archivosMovimientosCabsDb.ArchivosMovimientoCabID);
+                                cmd.Parameters.AddWithValue("@ArchivosMovimientoCabID", archivosMovimientoCabID);
                                 cmd.Parameters.AddWithValue("@LugarID", lugarID);
                                 cmd.ExecuteNonQuery();
                                 transaccion.Commit();

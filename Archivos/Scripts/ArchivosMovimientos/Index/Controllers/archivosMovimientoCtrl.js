@@ -26,7 +26,8 @@
                         fields: {
                             'titulo': $scope.archivosMovimiento.titulo,
                             'descripcion': $scope.archivosMovimiento.descripcion,
-                            'lugarID': $scope.archivosMovimiento.lugar.lugarID
+                            'lugarID': $scope.archivosMovimiento.lugar.lugarID,
+                            'archivosMovimientoCabID': $scope.archivosMovimiento.archivosMovimientoCabID
                         },
                         file: file
                     }).progress(function (evt) {
@@ -36,7 +37,7 @@
 
                     }).success(function (data, status, headers, config) {
                         if (!data.error) {
-                            $scope.archivosMovimiento = {};
+                            //$scope.archivosMovimiento = {};
                         }
                         $scope.data = data;
                         $timeout(function () {

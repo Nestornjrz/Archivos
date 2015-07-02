@@ -44,6 +44,7 @@ namespace Archivos.Controllers.Api {
             var titulo = request["titulo"];
             var descripcion = request["descripcion"];
             var lugarID = request["lugarID"];
+            int archivosMovimientoCabID = int.Parse(request["archivosMovimientoCabID"]);
 
             if (request.Files.Count > 0) {
                 var cantidadArchivosSinError = request.Files.Count;
@@ -57,7 +58,8 @@ namespace Archivos.Controllers.Api {
                             titulo,
                             descripcion,
                             lugarID,
-                            Guid.Parse(User.Identity.GetUserId())
+                            Guid.Parse(User.Identity.GetUserId()),
+                            archivosMovimientoCabID
                             );
                         if (mensajeCadaUno.Error) { cantidadArchivosSinError -= 1; }
                         listadoMensajeArchivos.Add(mensajeCadaUno);

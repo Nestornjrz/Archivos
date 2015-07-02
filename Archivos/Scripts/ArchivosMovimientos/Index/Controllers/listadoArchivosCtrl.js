@@ -25,7 +25,7 @@
             ocultar();
             vm.menu.filtroForm.class = "active";
             vm.menu.filtroForm.mostrar = true;
-            vm.archivosMovimientos = {};
+            vm.grupoArchiMovs = {};
         }
         //////
         vm.listadoFn();
@@ -36,6 +36,7 @@
 
         vm.nuevaBusqueda = function () {
             vm.filtro = {};
+            vm.grupoArchiMovs = {};
         }
         vm.buscar = function () {
             var titulo = "";
@@ -51,6 +52,7 @@
                },
                function (respuesta) {
                    vm.archivosMovimientos = respuesta;
+                   crearGrupo(vm.archivosMovimientos);
                });
         }
 
@@ -62,7 +64,26 @@
                 },
                 function (respuesta) {
                     vm.archivosMovimientos = respuesta;
+                    crearGrupo(vm.archivosMovimientos);
                 });
+        }
+
+        function crearGrupo(archivosMovimientos) {
+            var archiMovByCabID = _.groupBy(archivosMovimientos, function (valueArchMov, index, list) {
+                return valueArchMov.archivosMovimientoCabID;
+            });
+            vm.grupoArchiMovs = _.collect(archiMovByCabID, function (archivosMovValue, archiMovIndex, archivMovList) {
+                var cabecera = {};
+                var archivos = [];
+                _.each(archivosMovValue, function (archivoValue, archivoIndex) {
+                    cabecera = {
+                        'archivosMovimientoCabID': archivoValue.archivosMovimientoCabID,
+                        'titulo': archivoValue.titulo
+                    };
+                    archivos.push(archivoValue);
+                });
+                return { 'cabecera': cabecera, 'archivos': archivos }
+            });
         }
 
         //Captura de eventos
