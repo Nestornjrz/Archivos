@@ -8,6 +8,7 @@
 
     function listadoArchivosCtrl($rootScope, archivosResource) {
         var vm = this;
+        vm.lugares = archivosResource.lugares.query();
         //Menu
         vm.menu = {};
 
@@ -41,14 +42,25 @@
         vm.buscar = function () {
             var titulo = "";
             var descripcion = "";
+            var lugarID
 
             titulo = (vm.filtro.titulo == null) ? "" : vm.filtro.titulo;
             descripcion = (vm.filtro.descripcion == null) ? "" : vm.filtro.descripcion;
+            lugarID = (vm.filtro.lugar == null) ? 0 : vm.filtro.lugar.lugarID;
+
+            if ((vm.filtro.titulo == null || vm.filtro.titulo == "")
+                && (vm.filtro.descripcion == null || vm.filtro.descripcion == "")
+                && (vm.filtro.lugar == null || vm.filtro.lugar == "")
+                ) {
+                alert("Deve se leccionar algun criterio");
+                return;
+            }
 
             archivosResource.archivosMovimientos.query(
                {
                    "titulo": titulo,
-                   "descripcion": descripcion
+                   "descripcion": descripcion,
+                   "lugarID": lugarID
                },
                function (respuesta) {
                    vm.archivosMovimientos = respuesta;
@@ -60,7 +72,8 @@
             archivosResource.archivosMovimientos.query(
                 {
                     titulo: "",
-                    descripcion: ""
+                    descripcion: "",
+                    "lugarID": 0
                 },
                 function (respuesta) {
                     vm.archivosMovimientos = respuesta;

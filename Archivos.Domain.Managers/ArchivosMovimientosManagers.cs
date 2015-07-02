@@ -35,7 +35,7 @@ namespace Archivos.Domain.Managers {
                 return listado;
             }
         }
-        public List<ArchivosMovimientoDto> ListadoDocumentos(string rutaDestino, string titulo, string descripcion) {
+        public List<ArchivosMovimientoDto> ListadoDocumentos(string rutaDestino, string titulo, string descripcion, int lugarID) {
             using (var context = new ArchivosEntities()) {
                 var listadoDb = context.ArchivosMovimientos.AsQueryable();
 
@@ -52,6 +52,9 @@ namespace Archivos.Domain.Managers {
                         var palabraTrim = palabra.Trim();
                         listadoDb = listadoDb.Where(l => l.Descripcion.Contains(palabraTrim)).AsQueryable();
                     }
+                }
+                if (lugarID != 0) {
+                    listadoDb = listadoDb.Where(l=>l.LugarID == lugarID);
                 }
 
                 var listado = listadoDb.Select(s => new ArchivosMovimientoDto() {

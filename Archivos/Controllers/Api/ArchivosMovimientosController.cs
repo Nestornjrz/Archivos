@@ -15,13 +15,13 @@ namespace Archivos.Controllers.Api {
     public class ArchivosMovimientosController : ApiController {
         // GET: api/ArchivosMovimientos
         [Authorize(Roles = "Operador")]
-        public HttpResponseMessage Get([FromUri] string titulo, [FromUri] string descripcion) {
+        public HttpResponseMessage Get([FromUri] string titulo, [FromUri] string descripcion, [FromUri] int lugarID) {
             ArchivosMovimientosManagers amm = new ArchivosMovimientosManagers();
             string ruta = Path.Combine("~/images/docs");
             var rutaDestino = HttpContext.Current.Server.MapPath(ruta);
             List<ArchivosMovimientoDto> listado;
-            if (titulo != null || descripcion != null) {
-                listado = amm.ListadoDocumentos(rutaDestino, titulo, descripcion);
+            if (titulo != null || descripcion != null || lugarID != 0) {
+                listado = amm.ListadoDocumentos(rutaDestino, titulo, descripcion, lugarID);
             } else {
                 listado = amm.ListadoDocumentos(rutaDestino);
             }

@@ -15,7 +15,19 @@
                         <input type="text" class="form-control" ng-model="vm.filtro.descripcion" name="descripcion" ng-required="false" placeholder="Palabra clave separados por coma">
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="form-group">
+                    <label for="lugar" class="col-md-3 control-label">Lugar</label>
+                    <div class="col-md-9">
+                        <select name="lugar" required
+                                ng-model="vm.filtro.lugar"
+                                ng-options="l.nombreLugar for l in vm.lugares" class="form-control"
+                                ng-required="false">
+                            <!--<option value="">-- Seleccione el concepto --</option>-->
+                            <option value="" ng-hide="vm.filtro.lugar">Seleccione lugar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-8" style="margin-top:20px;">
                     <span>
                         <button ng-click="vm.buscar()" class="btn btn-default">
                             Buscar
